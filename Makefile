@@ -1,4 +1,4 @@
-# Install the 'crontab/' folder to ~/.config/crontab/
-install:
-	mkdir -p ~/.config
-	cp -v -r crontab ~/.config/
+.PHONY: apply-crontabs
+
+apply-crontabs:
+	./apply-crontabs
