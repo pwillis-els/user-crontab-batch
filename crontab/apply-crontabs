@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -e -u
+[ "${DEBUG:-0}" = "1" ] && set -x # set DEBUG=1 to enable shell tracing
+
+# This script will take all '*.cron' files in this directory, concatenate them,
+# and pipe them to the 'crontab' command. In this way you can eaiser maintain and
+# install your user's crontab file.
+
+# Get script path
+SCRIPT="$0"
+command -v readlink 2>/dev/null 1>/dev/null && SCRIPT="$(readlink -f "${SCRIPT}")"
+SCRIPTPATH="$(CDPATH= cd -- "$(dirname -- "${SCRIPT}")" && pwd -P)"
+
+# Concatenate files and output to crontab
+cd "${SCRIPTPATH}" &&
+cat *.cron | crontab -
